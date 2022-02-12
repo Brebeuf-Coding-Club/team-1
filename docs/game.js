@@ -33,16 +33,31 @@ function create() {
 
   platforms = this.physics.add.staticGroup();
   platforms.create(400, 588, "wall").setScale(2).refreshBody();
-  platforms.create(600, 300, "wall");
+  platforms.create(600, 400, "wall");
+  platforms.create(200, 480, "wall");
 
-  player = this.physics.add.sprite(400, 0, "ball");
+
+  player = this.physics.add.sprite(400, 0, "ball").setScale(0.7);
   player.setBounce(0.5);
   player.setCollideWorldBounds(true);
   player.body.setGravityY(300);
 
   this.physics.add.collider(player, platforms);
+  cursors = this.input.keyboard.createCursorKeys();
+
+  
 }
 
 function update() {
+  if (cursors.left.isDown) {
+    player.setVelocityX(-160);
+  } else if (cursors.right.isDown) {
+    player.setVelocityX(160);
+  } else {
+    player.setVelocityX(0);
+  }
+  if (cursors.up.isDown && player.body.touching.down) {
+    player.setVelocityY(-400);
+  }
 
 }
